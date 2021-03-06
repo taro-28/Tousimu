@@ -1,0 +1,227 @@
+{% extends 'simulators/base-tab.html
+{% load static %}
+
+{% block title %}資産取崩しシミュレーション{% endblock title %}
+
+{% block description %}資産取崩しシミュレーションでは、毎月取り崩す金額・取り崩し期間・利回りから必要な総資産額を計算可能。経過年月ごとの利回りありの総資産額と利回りなし総資産額の比較で、複利の力の大きさを感じることができます！さらに総資産額から、毎月取り崩す金額・取り崩し期間・利回りの逆算も可能！積立投資をする銘柄の選定や、投資金額の決定にご活用ください！{% endblock description %}
+
+{% block explanation %}
+<p>資産取崩しシミュレーションでは、<br class="d-inline d-sm-none">毎月取り崩す金額・取り崩し期間・利回りから<br class="d-inline d-sm-none">必要な<span
+    class='h5 font-pink font-weight-bold'>総資産額</span>を計算可能。<br>
+  経過年月ごとの利回りありの総資産額と利回りなし総資産額の比較で、<br class="d-inline d-sm-none"><span
+    class='font-weight-bold'>複利の力</span>の大きさを感じることができます！
+</p>
+<p>さらに総資産額から、<br class="d-inline d-sm-none">毎月取り崩す金額・取り崩し期間・利回りの逆算も可能！<br>
+  積立投資をする銘柄の選定や、<br class="d-inline d-sm-none">投資金額の決定にご活用ください！</p>
+{% endblock explanation %}
+
+{% block twitter_card %}
+<meta property="og:url" content="https://tousimu.work/flat-price-sale" />
+<meta property="og:title" content="資産取崩しシミュレーション｜Tousimu[トウシム]" />
+<meta property="og:description"
+  content="資産取崩しシミュレーションでは、毎月取り崩す金額・取り崩し期間・利回りから必要な総資産額を計算可能。経過年月ごとの利回りありの総資産額と利回りなし総資産額の比較で、複利の力の大きさを感じることができます！さらに総資産額から、毎月取り崩す金額・取り崩し期間・利回りの逆算も可能！積立投資をする銘柄の選定や、投資金額の決定にご活用ください！" />
+{% endblock twitter_card %}
+
+{% block bread_page_name %}
+資産取崩しシミュレーション
+{% endblock bread_page_name %}
+
+{% block page_name %}
+資産取崩しシミュレーション
+{% endblock page_name %}
+
+{% block tab1 %}
+総資産額
+{% endblock tab1 %}
+
+{% block tab2 %}
+毎月取り崩す金額
+{% endblock tab2 %}
+
+{% block tab3 %}
+取り崩し期間
+{% endblock tab3 %}
+
+{% block tab4 %}
+利回り
+{% endblock tab4 %}
+
+{% block tab1_explanation %}
+毎月取り崩す金額・取り崩し期間・利回りを入力してください。<br>
+すぐに取り崩しに必要な総資産額が計算されます！
+{% endblock tab1_explanation %}
+
+{% block tab1_content %}
+<div class="form-group col-sm-6 col-lg-4">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="monthly_amount_addon" class="input-group-text" for="id_last_funded_monthly_amount">毎月取り崩す金額</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_last_funded_monthly_amount" value="200000" min="0"
+      max="9999999" step="10000" required pattern="\d*" aria-describedby='monthly_amount_addon' data-toggle="tooltip" title="取り崩し期間の間、毎月資産から売却する金額">
+    <div class="input-group-append">
+      <label id="monthly_amount_addon" class="input-group-text" for="id_last_funded_monthly_amount">円</label>
+    </div>
+  </div>
+</div>
+<div class='form-group col-sm-6 col-lg-4'>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="period_addon" class="input-group-text" for='id_last_funded_period'>取り崩し期間</label>
+    </div>
+    <input type="number" class="form-control text-right" value="20" min="0" max="99" required id="id_last_funded_period"
+      pattern="\d*" aria-describedby='period_addon' data-toggle="tooltip" title="総資産から毎月同じ金額を取り崩す期間">
+    <div class="input-group-append">
+      <label id="period_addon" class="input-group-text" for='id_last_funded_period'>年</label>
+    </div>
+  </div>
+</div>
+<div class='form-group col-sm-6 col-lg-4'>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="yearly_yield_addon" class="input-group-text" for="id_last_funded_yearly_yield">利回り</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_last_funded_yearly_yield" value="7" min="-99.9"
+      max="99.9" step="0.1" required pattern="\d*" aria-describedby='yearly_yield_addon' data-toggle="tooltip" title="保有している資産に期待する年間の利回り">
+    <div class="input-group-append">
+      <label id="yearly_yield_addon" class="input-group-text" for="id_last_funded_yearly_yield">%</label>
+    </div>
+  </div>
+</div>
+{% endblock tab1_content %}
+
+{% block tab2_explanation %}
+取り崩す総資産額と取り崩し期間・利回りを入力してください。<br>
+すぐに毎月取り崩せる金額が計算されます！
+{% endblock tab2_explanation %}
+
+{% block tab2_content %}
+<div class="form-group col-sm-6 col-lg-4">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="last_funded_addon" class="input-group-text" for="id_monthly_amount_last_funded_amount">総資産額</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_monthly_amount_last_funded_amount" value="25000000"
+      min="0" max="999999999" step="10000000" required pattern="\d*" aria-describedby='last_funded_addon' data-toggle="tooltip" title="毎月取り崩していく資産の保有額">
+    <div class="input-group-append">
+      <label id="last_funded_addon" class="input-group-text" for="id_monthly_amount_last_funded_amount">円</label>
+    </div>
+  </div>
+</div>
+<div class='form-group col-sm-6 col-lg-4'>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="period_addon" class="input-group-text" for="id_monthly_amount_period">取り崩し期間</label>
+    </div>
+    <input type="number" class="form-control text-right" value="20" min="0" max="99" required
+      id="id_monthly_amount_period" pattern="\d*" aria-describedby='period_addon' data-toggle="tooltip" title="総資産から毎月同じ金額を取り崩す期間">
+    <div class="input-group-append">
+      <label id="period_addon" class="input-group-text" for="id_monthly_amount_period">年</label>
+    </div>
+  </div>
+</div>
+<div class='form-group col-sm-6 col-lg-4'>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="yearly_yield_addon" class="input-group-text" for="id_monthly_amount_yearly_yield">利回り</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_monthly_amount_yearly_yield" value="7" min="-99.9"
+      max="99.9" step="0.1" required pattern="\d*" aria-describedby='yearly_yield_addon' data-toggle="tooltip" title="保有している資産に期待する年間の利回り">
+    <div class="input-group-append">
+      <label id="yearly_yield_addon" class="input-group-text" for="id_monthly_amount_yearly_yield">%</label>
+    </div>
+  </div>
+</div>
+{% endblock tab2_content %}
+
+{% block tab3_explanation %}
+取り崩す総資産額と毎月取り崩す金額・利回りを入力してください。<br>
+すぐに取り崩せる期間が計算されます！
+{% endblock tab3_explanation %}
+
+{% block tab3_content %}
+<div class="form-group col-sm-6 col-lg-4">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="last_funded_addon" class="input-group-text" for="id_period_last_funded_amount">総資産額</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_period_last_funded_amount" value="25000000" min="0"
+      max="999999999" step="10000000" required pattern="\d*" aria-describedby='last_funded_addon' data-toggle="tooltip" title="毎月取り崩していく資産の保有額">
+    <div class="input-group-append">
+      <label id="last_funded_addon" class="input-group-text" for="id_period_last_funded_amount">円</label>
+    </div>
+  </div>
+</div>
+<div class='form-group col-sm-6 col-lg-4'>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="monthly_amount_addon" class="input-group-text" for="id_period_monthly_amount">毎月取り崩す金額</label>
+    </div>
+    <input type="number" class="form-control text-right" value="200000" min="0" max="99999999" step="10000" required
+      id="id_period_monthly_amount" pattern="\d*" aria-describedby='monthly_amount_addon' data-toggle="tooltip" title="取り崩し期間の間、毎月資産から売却する金額">
+    <div class="input-group-append">
+      <label id="monthly_amount_addon" class="input-group-text" for="id_period_monthly_amount">円</label>
+    </div>
+  </div>
+</div>
+<div class='form-group col-sm-6 col-lg-4'>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="yearly_yield_addon" class="input-group-text" for="id_period_yearly_yield">利回り</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_period_yearly_yield" value="7" min="-99.9" max="99.9"
+      step="0.1" required pattern="\d*" aria-describedby='yearly_yield_addon' data-toggle="tooltip" title="保有している資産に期待する年間の利回り">
+    <div class="input-group-append">
+      <label id="yearly_yield_addon" class="input-group-text" for="id_period_yearly_yield">%</label>
+    </div>
+  </div>
+</div>
+{% endblock tab3_content %}
+
+{% block tab4_explanation %}
+取り崩す総資産額と毎月取り崩す金額・取り崩し期間を入力してください。<br>
+すぐに取崩しに必要な利回りが計算されます！
+{% endblock tab4_explanation %}
+
+{% block tab4_content %}
+<div class="form-group col-sm-6 col-lg-4">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="last_funded_addon" class="input-group-text" for="id_yearly_yield_last_funded_amount">総資産額</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_yearly_yield_last_funded_amount" value="25000000"
+      min="0" max="999999999" step="10000000" required pattern="\d*" aria-describedby='last_funded_addon' data-toggle="tooltip" title="毎月取り崩していく資産の保有額">
+    <div class="input-group-append">
+      <label id="last_funded_addon" class="input-group-text" for="id_yearly_yield_last_funded_amount">円</label>
+    </div>
+  </div>
+</div>
+<div class='form-group col-sm-6 col-lg-4'>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="monthly_amount_addon" class="input-group-text" for="id_yearly_yield_monthly_amount">毎月取り崩す金額</label>
+    </div>
+    <input type="number" class="form-control text-right" value="200000" min="0" max="99999999" step="10000" required
+      id="id_yearly_yield_monthly_amount" pattern="\d*" aria-describedby='monthly_amount_addon' data-toggle="tooltip" title="取り崩し期間の間、毎月資産から売却する金額">
+    <div class="input-group-append">
+      <label id="monthly_amount_addon" class="input-group-text" for="id_yearly_yield_monthly_amount">円</label>
+    </div>
+  </div>
+</div>
+<div class='form-group col-sm-6 col-lg-4'>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="period_addon" class="input-group-text" for="id_yearly_yield_period">取り崩し期間</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_yearly_yield_period" value="20" min="-99.9" max="80"
+      required pattern="\d*" aria-describedby='period_addon' data-toggle="tooltip" title="総資産から毎月同じ金額を取り崩す期間">
+    <div class="input-group-append">
+      <label id="period_addon" class="input-group-text" for="id_yearly_yield_period">年</label>
+    </div>
+  </div>
+</div>
+{% endblock tab4_content %}
+
+{% block sub_js %}
+<script type="text/javascript" src="js/flat-price-sale.js"></script>
+{% endblock sub_js %}

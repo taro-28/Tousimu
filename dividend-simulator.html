@@ -1,0 +1,296 @@
+{% extends 'simulators/base-tab.html
+{% load static %}
+
+{% block title %}配当金額シミュレーション{% endblock title %}
+
+{% block description %}配当金額シミュレーションでは、毎月の投資金額・投資期間・配当利回り・増配率から将来の最終年間配当金額を計算可能。経過年月ごとの増配ありの配当金額と増配なし配当金額の比較で、増配の力の大きさを感じることができます！さらに目標とする最終年間配当金額から、必要な毎月の投資金額・投資期間・配当利回りの逆算も可能！高配当株投資をする銘柄の選定や、投資金額の決定にご活用ください！{% endblock description %}
+
+{% block explanation %}
+<p>配当金額シミュレーションでは、<br class="d-inline d-sm-none">毎月の投資金額・投資期間・配当利回り・増配率から<br class="d-inline d-sm-none">将来の<span
+    class='h5 font-pink font-weight-bold'>最終年間配当金額</span>を計算可能。<br>
+  経過年月ごとの増配ありの配当金額と増配なし配当金額の比較で、<br class="d-inline d-sm-none"><span
+    class='font-weight-bold'>増配の力</span>の大きさを感じることができます！
+</p>
+<p>さらに目標とする最終年間配当金額から、<br class="d-inline d-sm-none">必要な毎月の投資金額・投資期間・配当利回りの逆算も可能！<br>
+  高配当株投資をする銘柄の選定や、<br class="d-inline d-sm-none">投資金額の決定にご活用ください！</p>
+{% endblock explanation %}
+
+{% block twitter_card %}
+<meta property="og:url" content="https://tousimu.work/dividend-simulator" />
+<meta property="og:title" content="配当金額シミュレーション｜Tousimu[トウシム]" />
+<meta property="og:description"
+  content="配当金額シミュレーションでは、毎月の投資金額・投資期間・配当利回り・増配率から将来の最終年間配当金額を計算可能。経過年月ごとの増配ありの配当金額と増配なし配当金額の比較で、増配の力の大きさを感じることができます！さらに目標とする最終年間配当金額から、必要な毎月の投資金額・投資期間・配当利回りの逆算も可能！高配当株投資をする銘柄の選定や、投資金額の決定にご活用ください！" />
+{% endblock twitter_card %}
+
+{% block bread_page_name %}
+配当金額シミュレーション
+{% endblock bread_page_name %}
+
+{% block page_name %}
+配当金額シミュレーション
+{% endblock page_name %}
+
+{% block tab1 %}
+最終年間配当金額
+{% endblock tab1 %}
+
+{% block tab2 %}
+毎月の投資金額
+{% endblock tab2 %}
+
+{% block tab3 %}
+投資期間
+{% endblock tab3 %}
+
+{% block tab4 %}
+配当利回り
+{% endblock tab4 %}
+
+{% block tab1_explanation %}
+毎月の投資金額・投資期間・配当利回り・増配率を入力してください。<br>
+すぐに最終年間配当金額が計算されます！
+{% endblock tab1_explanation %}
+
+{% block tab1_content %}
+<div class="form-group col-sm-6">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="monthly_amount_addon" class="input-group-text" for="id_last_dividend_monthly_amount">毎月の投資金額</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_last_dividend_monthly_amount" value="50000" min="0"
+      max="9999999" step="10000" required pattern="\d*" aria-describedby='monthly_amount_addon' data-toggle="tooltip"
+      title="最終年間配当金額に到達するまでの期間に、毎月投資する金額">
+    <div class="input-group-append">
+      <label id="monthly_amount_addon" class="input-group-text" for="id_last_dividend_monthly_amount">円</label>
+    </div>
+  </div>
+</div>
+<div class='form-group col-sm-6'>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="period_addon" class="input-group-text" for='id_last_dividend_period'>投資期間</label>
+    </div>
+    <input type="number" class="form-control text-right" value="20" min="0" max="99" required
+      id="id_last_dividend_period" pattern="\d*" aria-describedby='period_addon' data-toggle="tooltip"
+      title="現在から最終年間配当金額に到達するまでの期間">
+    <div class="input-group-append">
+      <label id="period_addon" class="input-group-text" for='id_last_dividend_period'>年</label>
+    </div>
+  </div>
+</div>
+<div class='form-group col-sm-6'>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="yearly_yield_addon" class="input-group-text" for="id_last_dividend_yearly_yield">配当利回り</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_last_dividend_yearly_yield" value="3" min="-99.9"
+      max="99.9" step="0.1" required pattern="\d*" aria-describedby='yearly_yield_addon' data-toggle="tooltip"
+      title="目標とする年間の配当利回り">
+    <div class="input-group-append">
+      <label id="yearly_yield_addon" class="input-group-text" for="id_last_dividend_yearly_yield">%</label>
+    </div>
+  </div>
+</div>
+<div class='form-group col-sm-6'>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="increase_rate_addon" class="input-group-text" for="id_last_dividend_increase_rate">増配率</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_last_dividend_increase_rate" value="5" min="-99.9"
+      max="99.9" step="0.1" required pattern="\d*" aria-describedby='increase_rate_addon' data-toggle="tooltip"
+      title="同じ銘柄を同じ数量保持した場合の年間の配当金の増加率">
+    <div class="input-group-append">
+      <label id="increase_rate_addon" class="input-group-text" for="id_last_dividend_increase_rate">%</label>
+    </div>
+  </div>
+</div>
+{% endblock tab1_content %}
+
+{% block tab2_explanation %}
+目標とする最終年間配当金額と投資期間・配当利回り・増配率を入力してください。<br>
+目標達成に必要な毎月の投資金額が、すぐに計算されます！
+{% endblock tab2_explanation %}
+
+{% block tab2_content %}
+<div class="form-group col-sm-6">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="last_dividend_addon" class="input-group-text" for="id_monthly_amount_last_dividend">最終年間配当金額</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_monthly_amount_last_dividend" value="2400000" min="0"
+      max="999999999" step="100000" required pattern="\d*" aria-describedby='last_dividend_addon' data-toggle="tooltip"
+      title="目標とする最終的に年間で受け取る配当金額">
+    <div class="input-group-append">
+      <label id="last_dividend_addon" class="input-group-text" for="id_monthly_amount_last_dividend">円</label>
+    </div>
+  </div>
+</div>
+<div class='form-group col-sm-6'>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="period_addon" class="input-group-text" for='id_monthly_amount_period'>投資期間</label>
+    </div>
+    <input type="number" class="form-control text-right" value="20" min="0" max="99" required
+      id="id_monthly_amount_period" pattern="\d*" aria-describedby='period_addon' data-toggle="tooltip"
+      title="現在から最終年間配当金額に到達するまでの期間">
+    <div class="input-group-append">
+      <label id="period_addon" class="input-group-text" for='id_monthly_amount_period'>年</label>
+    </div>
+  </div>
+</div>
+<div class='form-group col-sm-6'>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="yearly_yield_addon" class="input-group-text" for="id_monthly_amount_yearly_yield">配当利回り</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_monthly_amount_yearly_yield" value="3" min="-99.9"
+      max="99.9" step="0.1" required pattern="\d*" aria-describedby='yearly_yield_addon' data-toggle="tooltip"
+      title="目標とする年間の配当利回り">
+    <div class="input-group-append">
+      <label id="yearly_yield_addon" class="input-group-text" for="id_monthly_amount_yearly_yield">%</label>
+    </div>
+  </div>
+</div>
+<div class='form-group col-sm-6'>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="increase_rate_addon" class="input-group-text" for="id_monthly_amount_increase_rate">増配率</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_monthly_amount_increase_rate" value="5" min="-99.9"
+      max="99.9" step="0.1" required pattern="\d*" aria-describedby='increase_rate_addon' data-toggle="tooltip"
+      title="同じ銘柄を同じ数量保持した場合の年間の配当金の増加率">
+    <div class="input-group-append">
+      <label id="increase_rate_addon" class="input-group-text" for="id_monthly_amount_increase_rate">%</label>
+    </div>
+  </div>
+</div>
+{% endblock tab2_content %}
+
+{% block tab3_explanation %}
+目標とする最終年間配当金額と毎月の投資金額・配当利回り・増配率を入力してください。<br>
+目標達成に必要な投資期間が、すぐに計算されます！
+{% endblock tab3_explanation %}
+
+{% block tab3_content %}
+<div class="form-group col-sm-6">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="last_dividend_addon" class="input-group-text" for="id_period_last_dividend">最終年間配当金額</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_period_last_dividend" value="2400000" min="0"
+      max="999999999" step="100000" required pattern="\d*" aria-describedby='last_dividend_addon' data-toggle="tooltip"
+      title="目標とする最終的に年間で受け取る配当金額">
+    <div class="input-group-append">
+      <label id="last_dividend_addon" class="input-group-text" for="id_period_last_dividend">円</label>
+    </div>
+  </div>
+</div>
+<div class="form-group col-sm-6">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="monthly_amount_addon" class="input-group-text" for="id_period_monthly_amount">毎月の投資金額</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_period_monthly_amount" value="50000" min="0"
+      max="9999999" step="10000" required pattern="\d*" aria-describedby='monthly_amount_addon' data-toggle="tooltip"
+      title="最終年間配当金額に到達するまでの期間に、毎月投資する金額">
+    <div class="input-group-append">
+      <label id="monthly_amount_addon" class="input-group-text" for="id_period_monthly_amount">円</label>
+    </div>
+  </div>
+</div>
+<div class='form-group col-sm-6'>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="yearly_yield_addon" class="input-group-text" for="id_period_yearly_yield">配当利回り</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_period_yearly_yield" value="3" min="-99.9" max="99.9"
+      step="0.1" required pattern="\d*" aria-describedby='yearly_yield_addon' data-toggle="tooltip"
+      title="目標とする年間の配当利回り">
+    <div class="input-group-append">
+      <label id="yearly_yield_addon" class="input-group-text" for="id_period_yearly_yield">%</label>
+    </div>
+  </div>
+</div>
+<div class='form-group col-sm-6'>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="increase_rate_addon" class="input-group-text" for="id_period_increase_rate">増配率</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_period_increase_rate" value="5" min="-99.9" max="99.9"
+      step="0.1" required pattern="\d*" aria-describedby='increase_rate_addon' data-toggle="tooltip"
+      title="同じ銘柄を同じ数量保持した場合の年間の配当金の増加率">
+    <div class="input-group-append">
+      <label id="increase_rate_addon" class="input-group-text" for="id_period_increase_rate">%</label>
+    </div>
+  </div>
+</div>
+{% endblock tab3_content %}
+
+{% block tab4_explanation %}
+目標とする最終年間配当金額と毎月の投資金額・投資期間・増配率を入力してください。<br>
+目標達成に必要な配当利回りが、すぐに計算されます！
+{% endblock tab4_explanation %}
+
+{% block tab4_content %}
+<div class="form-group col-sm-6">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="last_dividend_addon" class="input-group-text" for="id_yearly_yield_last_dividend">最終年間配当金額</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_yearly_yield_last_dividend" value="2400000" min="0"
+      max="999999999" step="100000" required pattern="\d*" aria-describedby='last_dividend_addon' data-toggle="tooltip"
+      title="目標とする最終的に年間で受け取る配当金額">
+    <div class="input-group-append">
+      <label id="last_dividend_addon" class="input-group-text" for="id_yearly_yield_last_dividend">円</label>
+    </div>
+  </div>
+</div>
+<div class="form-group col-sm-6">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="monthly_amount_addon" class="input-group-text" for="id_yearly_yield_monthly_amount">毎月の投資金額</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_yearly_yield_monthly_amount" value="50000" min="0"
+      max="9999999" step="10000" required pattern="\d*" aria-describedby='monthly_amount_addon' data-toggle="tooltip"
+      title="最終年間配当金額に到達するまでの期間に、毎月投資する金額">
+    <div class="input-group-append">
+      <label id="monthly_amount_addon" class="input-group-text" for="id_yearly_yield_monthly_amount">円</label>
+    </div>
+  </div>
+</div>
+<div class='form-group col-sm-6'>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="period_addon" class="input-group-text" for='id_yearly_yield_period'>投資期間</label>
+    </div>
+    <input type="number" class="form-control text-right" value="20" min="0" max="99" required
+      id="id_yearly_yield_period" pattern="\d*" aria-describedby='period_addon' data-toggle="tooltip"
+      title="現在から最終年間配当金額に到達するまでの期間">
+    <div class="input-group-append">
+      <label id="period_addon" class="input-group-text" for='id_yearly_yield_period'>年</label>
+    </div>
+  </div>
+</div>
+<div class='form-group col-sm-6'>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <label id="increase_rate_addon" class="input-group-text" for="id_yearly_yield_increase_rate">増配率</label>
+    </div>
+    <input type="number" class="form-control text-right" id="id_yearly_yield_increase_rate" value="5" min="-99.9"
+      max="99.9" step="0.1" required pattern="\d*" aria-describedby='increase_rate_addon' data-toggle="tooltip"
+      title="同じ銘柄を同じ数量保持した場合の年間の配当金の増加率">
+    <div class="input-group-append">
+      <label id="increase_rate_addon" class="input-group-text" for="id_yearly_yield_increase_rate">%</label>
+    </div>
+  </div>
+</div>
+{% endblock tab4_content %}
+
+{% block cal_info %}
+<li class="list-group-item">※ 毎月の投資額に加えて配当金は全て再投資したとして計算。</li>
+{% endblock cal_info %}
+
+
+{% block sub_js %}
+<script type="text/javascript" src="js/high-div.js"></script>
+{% endblock sub_js %}

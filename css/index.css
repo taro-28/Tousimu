@@ -1,0 +1,17 @@
+div.index-card {
+  transition: box-shadow 0.3s, transform 0.3s;
+  position: relative;
+}
+
+div.index-card:hover {
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.24);
+  transform: translate(0, -2px);
+}
+
+div.index-card a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height:100%;
+  width: 100%;
+}

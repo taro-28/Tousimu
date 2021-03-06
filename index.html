@@ -25,8 +25,9 @@
   <meta property="og:description" content="長期投資で未来をシミュレーション">
   <meta property="og:image" content="https://tousimu.work/static/simulators/img/card-thumbnail.jpg">
 
-  <link rel="stylesheet" href="{% static 'simulators/css/base.css' %}">
-  <link rel="stylesheet" href="{% static 'simulators/css/index.css' %}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/index.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
 
   <script type="text/javascript" src="https://kit.fontawesome.com/37a5b4f8e2.js"></script>
@@ -38,8 +39,8 @@
 <body>
   <header class='sticky-top shadow-sm'>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="{% url "simulators:index" %}">
-        <img class='img-fluid' src="{% static 'simulators/img/logo.png' %}" alt='Tousimu Logo'>
+      <a class="navbar-brand" href="index.html">
+        <img class='img-fluid' src="img/logo.png" alt='Tousimu Logo'>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,13 +48,13 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav mr-auto">
-          <a class="nav-item nav-link" href="{% url 'simulators:funded-simulator' %}"
+          <a class="nav-item nav-link" href="funded-simulator.html"
             id='id_index_invest'>積立金額シミュレーション</a>
-          <a class="nav-item nav-link" href="{% url 'simulators:dividend-simulator' %}">配当金額シミュレーション</a>
-          <a class="nav-item nav-link" href="{% url 'simulators:flat-price-sale' %}">資産取崩しシミュレーション</a>
+          <a class="nav-item nav-link" href="dividend-simulator.html">配当金額シミュレーション</a>
+          <a class="nav-item nav-link" href="flat-price-sale.html">資産取崩しシミュレーション</a>
         </div>
         <div class="navbar-nav">
-          <a class="nav-item nav-link" href="{% url 'simulators:info' %}"><i class="far fa-bell"></i> 更新情報</a>
+          <a class="nav-item nav-link" href="info.html"><i class="far fa-bell"></i> 更新情報</a>
           <a class="nav-item nav-link" href='https://twitter.com/maroblog28'><i class="fa fa-twitter"></i>
             開発者Twitter</a>
           <a class="nav-item nav-link" href='https://maro28.com/'><i class="fab fa-wordpress-simple"></i> 開発者Blog</a>
@@ -67,7 +68,7 @@
       <div class='text-center col'>
         <div id="particles-js" class='position-absolute h-100 w-100'></div>
         <h1 class='h3 my-4'>長期投資で<br class="d-inline d-sm-none">未来をシミュレーション</h1>
-        <img class='img-fluid center' src="{% static 'simulators/img/logo_large.png' %}" alt='Tousimu Large Logo'>
+        <img class='img-fluid center' src="img/logo_large.png" alt='Tousimu Large Logo'>
         <p class='h5 my-4'>Tousimuは<br
             class="d-inline d-sm-none"><strong>シンプル</strong>で<strong>簡単</strong>に<strong>すぐ</strong>使える<br
             class="d-inline d-sm-none">長期投資シミュレーションです。</p>
@@ -79,7 +80,7 @@
           <h2 class='card-header h6'>最新情報</h2>
           <div class='card card-body'>
             <p class='card-text'>2020年8月9日　<br class="d-inline d-sm-none">各シミュレーションにLINEのシェアボタンを追加しました。<br class="d-inline d-sm-none">シミュレーション結果をトークやタイムラインに投稿できます。<br class="d-inline d-sm-none">シミュレーション結果の友人への共有にご利用ください。</p>
-            <a href="{% url 'simulators:info' %}" class="card-link">過去の更新情報を確認する</a>
+            <a href="info.html" class="card-link">過去の更新情報を確認する</a>
           </div>
         </div>
       </div>
@@ -89,7 +90,7 @@
       <div class="col-sm-6">
         <div class='view overlay zoom index-card card mb-3'>
           <h2 class='card-header text-center h5'>積立金額シミュレーション</h2>
-          <img class="card-img-top" src="{% static 'simulators/img/funded-thumbnail.png' %}" alt='積立金額シミュレーションのサムネイル'>
+          <img class="card-img-top" src="img/funded-thumbnail.png" alt='積立金額シミュレーションのサムネイル'>
           <div class="card card-body border-light">
             <p class="card-text">
               毎月同じ金額を積立投資した時の、最終積立金額のシミュレーション。
@@ -97,13 +98,13 @@
               最終積立金額から逆算した毎月の投資金額・投資期間・利回りも計算可能。
             </p>
           </div>
-          <a href="{% url 'simulators:funded-simulator' %}"></a>
+          <a href="funded-simulator.html"></a>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="view overlay zoom index-card card mb-3">
           <h2 class='card-header text-center h5'>配当金額シミュレーション</h2>
-          <img class="card-img-top" src="{% static 'simulators/img/dividend-thumbnail.png' %}" alt='配当金額シミュレーションのサムネイル'>
+          <img class="card-img-top" src="img/dividend-thumbnail.png" alt='配当金額シミュレーションのサムネイル'>
           <div class="card card-body border-light">
             <p class="card-text">
               毎月同じ金額を積立投資し配当も再投資した時の、最終年間配当金額のシミュレーション。
@@ -111,13 +112,13 @@
               最終年間配当金額から逆算した毎月の投資金額・投資期間・配当利回りも計算可能。
             </p>
           </div>
-          <a href="{% url 'simulators:dividend-simulator' %}"></a>
+          <a href="dividend-simulator.html"></a>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="view overlay zoom index-card card mb-3">
           <h2 class='card-header text-center h5'>資産取崩しシミュレーション</h2>
-          <img class="card-img-top" src="{% static 'simulators/img/sale-thumbnail.png' %}" alt='資産取崩しシミュレーションのサムネイル'>
+          <img class="card-img-top" src="img/sale-thumbnail.png" alt='資産取崩しシミュレーションのサムネイル'>
           <div class="card card-body border-light">
             <p class="card-text">
               毎月同じ金額を取り崩すために必要な総資産額のシミュレーション。
@@ -125,7 +126,7 @@
               総資産額から逆算した毎月取り崩す金額・取り崩す期間・利回りも計算可能。
             </p>
           </div>
-          <a href="{% url 'simulators:flat-price-sale' %}"></a>
+          <a href="flat-price-sale.html"></a>
         </div>
       </div>
     </div>
@@ -134,15 +135,18 @@
   <footer class='page-footer font-small mt-5' style='background-color: #F8F9FA'>
     <div class="text-center py-4">
       <p>
-        <a href="{% url 'simulators:terms' %}" class='text-body'>利用規約</a>｜
-        <a href="{% url 'simulators:privacy' %}" class='text-body'>プライバシーポリシー</a>｜
-        <a href="{% url 'contact_form' %}" class='text-body'>お問い合わせ</a>
+        <a href="terms.html" class='text-body'>利用規約</a>｜
+        <a href="privacy.html" class='text-body'>プライバシーポリシー</a>｜
+        <a href="contact_form.html" class='text-body'>お問い合わせ</a>
       </p>
       <p>© 2020 Copyright: Tousimu</p>
     </div>
   </footer>
 
-  <script type="text/javascript" src="{% static 'simulators/js/index.js' %}"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 
 </html>

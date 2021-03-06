@@ -1,0 +1,77 @@
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.twitter:hover {
+  background-color: #1DA1F2;
+  color: #fff;
+}
+
+.twitter {
+  border-color: #1DA1F2;
+  color: #1DA1F2;
+}
+
+.twitter:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.line:hover {
+  background-color: #00B900;
+  color: #fff;
+}
+
+.line {
+  border-color: #00B900;
+  color: #00B900;
+}
+
+.line:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.facebook:hover {
+  background-color: #3B5998;
+  color: #fff;
+}
+
+.facebook {
+  border-color: #3B5998;
+  color: #3B5998;
+}
+
+.facebook:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.download {
+  border-color: #EF6A1C;
+  color: #EF6A1C;
+}
+
+.download:hover {
+  background-color: #EF6A1C;
+  color: #fff;
+}
+
+.download:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.font-pink {
+  color: #EA5698;
+}
+
+.font-skyblue {
+  color: #87A2DB;
+}

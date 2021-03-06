@@ -1,0 +1,6 @@
+.breadcrumb {
+  background-color: #ffffff;
+}
+.breadcrumb-item+.breadcrumb-item::before{
+	    content: ">";
+}
