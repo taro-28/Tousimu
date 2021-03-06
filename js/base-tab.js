@@ -73,6 +73,6 @@ function make_share_button(sns, text, ref_url) {
     var sns_url = 'twitter.com/share?url=';
     var sns_text = 'Tweet';
   }
-  return $('.' + sns + '_share').html('<a href="https://' + sns_url + 'https://tousimu.work/' + ref_url + '&text=' + encodeURI(text) + '" rel="nofollow" target="_blank" class="btn ' + sns + ' rounded-pill btn-sm"><i class="fab fa-' + sns + '"></i> ' + sns_text + '</a>');
+  return $('.' + sns + '_share').html('<a href="https://' + sns_url + 'https://taro-28.github.io/Tou-Simu/' + ref_url + '&text=' + encodeURI(text) + '" rel="nofollow" target="_blank" class="btn ' + sns + ' rounded-pill btn-sm"><i class="fab fa-' + sns + '"></i> ' + sns_text + '</a>');
 };
 window.functionLib.make_share_button = make_share_button;
