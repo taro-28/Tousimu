@@ -1,227 +1,459 @@
-{% extends 'simulators/base-tab.html
-{% load static %}
+<!DOCTYPE html>
+<html>
 
-{% block title %}資産取崩しシミュレーション{% endblock title %}
+<head>
+  <!-- エンコードの指定 -->
+  <meta charset="utf-8">
 
-{% block description %}資産取崩しシミュレーションでは、毎月取り崩す金額・取り崩し期間・利回りから必要な総資産額を計算可能。経過年月ごとの利回りありの総資産額と利回りなし総資産額の比較で、複利の力の大きさを感じることができます！さらに総資産額から、毎月取り崩す金額・取り崩し期間・利回りの逆算も可能！積立投資をする銘柄の選定や、投資金額の決定にご活用ください！{% endblock description %}
+  <!-- 電話番号の自動リンク化を無効 -->
+  <meta name="format-detection" content="telephone=no">
 
-{% block explanation %}
-<p>資産取崩しシミュレーションでは、<br class="d-inline d-sm-none">毎月取り崩す金額・取り崩し期間・利回りから<br class="d-inline d-sm-none">必要な<span
-    class='h5 font-pink font-weight-bold'>総資産額</span>を計算可能。<br>
-  経過年月ごとの利回りありの総資産額と利回りなし総資産額の比較で、<br class="d-inline d-sm-none"><span
-    class='font-weight-bold'>複利の力</span>の大きさを感じることができます！
-</p>
-<p>さらに総資産額から、<br class="d-inline d-sm-none">毎月取り崩す金額・取り崩し期間・利回りの逆算も可能！<br>
-  積立投資をする銘柄の選定や、<br class="d-inline d-sm-none">投資金額の決定にご活用ください！</p>
-{% endblock explanation %}
+  <!-- viewport(レスポンシブ用) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-{% block twitter_card %}
-<meta property="og:url" content="https://tousimu.work/flat-price-sale" />
+  <!-- サイトのタイトル＆説明 -->
+  <title>資産取崩しシミュレーション</title>
+  <meta name="description"
+    content="積立金額シミュレーションでは、毎月の投資金額・投資期間・利回りから将来の最終積立金額を計算可能。経過年月ごとの投資元本と積立金額の比較で、複利の力の大きさを感じることができます！さらに目標とする最終積立金額から、必要な毎月の投資金額・投資期間・利回りの逆算も可能！積立投資をする銘柄の選定や、投資金額の決定にご活用ください！">
+
+  <!-- Twitterカード -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@taroro_tarotaro">
+
+  <meta property="og:url" content="https://tousimu.work/flat-price-sale" />
 <meta property="og:title" content="資産取崩しシミュレーション｜Tousimu[トウシム]" />
 <meta property="og:description"
   content="資産取崩しシミュレーションでは、毎月取り崩す金額・取り崩し期間・利回りから必要な総資産額を計算可能。経過年月ごとの利回りありの総資産額と利回りなし総資産額の比較で、複利の力の大きさを感じることができます！さらに総資産額から、毎月取り崩す金額・取り崩し期間・利回りの逆算も可能！積立投資をする銘柄の選定や、投資金額の決定にご活用ください！" />
-{% endblock twitter_card %}
+  <meta property="og:image" content="https://taro-28.github.io/Tou-Simu/img/card-thumbnail.jpg">
 
-{% block bread_page_name %}
-資産取崩しシミュレーション
-{% endblock bread_page_name %}
+  <link rel="icon" href="img/favicon.ico">
 
-{% block page_name %}
-資産取崩しシミュレーション
-{% endblock page_name %}
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/base-tab.css">
 
-{% block tab1 %}
-総資産額
-{% endblock tab1 %}
+  <script type="text/javascript" src="https://kit.fontawesome.com/37a5b4f8e2.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
 
-{% block tab2 %}
-毎月取り崩す金額
-{% endblock tab2 %}
+</head>
 
-{% block tab3 %}
-取り崩し期間
-{% endblock tab3 %}
+<body>
+  <header class='sticky-top shadow-sm'>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="index.html">
+        <img class='img-fluid' src="img/logo.png" alt='Tousimu Logo'>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav mr-auto">
+          <a class="nav-item nav-link" href="funded-simulator.html"
+            id='id_index_invest'>積立金額シミュレーション</a>
+          <a class="nav-item nav-link" href="dividend-simulator.html">配当金額シミュレーション</a>
+          <a class="nav-item nav-link" href="flat-price-sale.html">資産取崩しシミュレーション</a>
+        </div>
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="info.html"><i class="far fa-bell"></i> 更新情報</a>
+          <a class="nav-item nav-link" href='https://twitter.com/taroro_tarotaro'><i class="fa fa-twitter"></i>
+            開発者Twitter</a>
+        </div>
+      </div>
+    </nav>
+  </header>
 
-{% block tab4 %}
-利回り
-{% endblock tab4 %}
+  <main class='m-1'>
+    <div class='container-fluid'>
+      <div class='row justify-content-center'>
+        <div class='col-xl-10'>
+          <div aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
+              <li class="breadcrumb-item active">資産取崩しシミュレーション</li>
+            </ol>
+          </div>
+          <h1 class='mt-3 h3 font-weight-bold'>資産取崩しシミュレーション</h1>
+        </div>
+      </div>
+      <div class='row justify-content-center'>
+        <div class='col-xl-10'>
+          <p>資産取崩しシミュレーションでは、<br class="d-inline d-sm-none">毎月取り崩す金額・取り崩し期間・利回りから<br class="d-inline d-sm-none">必要な<span
+            class='h5 font-pink font-weight-bold'>総資産額</span>を計算可能。<br>
+          経過年月ごとの利回りありの総資産額と利回りなし総資産額の比較で、<br class="d-inline d-sm-none"><span
+            class='font-weight-bold'>複利の力</span>の大きさを感じることができます！
+        </p>
+        <p>さらに総資産額から、<br class="d-inline d-sm-none">毎月取り崩す金額・取り崩し期間・利回りの逆算も可能！<br>
+          積立投資をする銘柄の選定や、<br class="d-inline d-sm-none">投資金額の決定にご活用ください！</p>
+        </div>
+      </div>
+      <div class='row justify-content-center'>
+        <div class='col-xl-10'>
+          <ul class="nav nav-tabs navbar-expand-lg nav-fill">
+            <li class="nav-item">
+              <a href="#canva1" class="nav-link active" data-toggle="tab" id="id_first_tab">
+                <span class='h4 font-weight-bold'>
+                  総資産額
+                </span>を計算する！
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#canva2" class="nav-link" data-toggle="tab" id="id_second_tab">
+                <span class='h4 font-weight-bold'>
+                  毎月取り崩す金額
+                </span>を計算する！
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#canva3" class="nav-link" data-toggle="tab" id="id_third_tab">
+                <span class='h4 font-weight-bold'>
+                  取り崩し期間
+                </span>を計算する！
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#canva4" class="nav-link" data-toggle="tab" id="id_forth_tab">
+                <span class='h4 font-weight-bold'>
+                  利回り
+                </span>を計算する！
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class='row justify-content-center'>
+        <div class='col-xl-10'>
+          <div class="tab-content my-2">
+            <div id="canva1" class="tab-pane fade show active container-fluid">
+              <div class='row pt-2'>
+                <div class='col-xl-8'>
+                  毎月取り崩す金額・取り崩し期間・利回りを入力してください。<br>
+                  すぐに取り崩しに必要な総資産額が計算されます！
+                </div>
+                <div class='col-xl-4 text-center'>
+                  <div class="twitter_share d-inline share_button">
+                  </div>
+                  <div class='line_share d-inline share_button'>
+                  </div>
+                  <div class='facebook_share d-inline share_button'>
+                  </div>
+                  <div class='image_share d-inline'>
+                    <a id="ss-picture1" download="tousimu_result.png" class='btn download rounded-pill btn-sm' href='#'><i
+                        class="fas fa-camera"></i> Download</a>
+                  </div>
+                </div>
+              </div>
+              <div id='ss-target1'>
+                <div class="row pt-2">
+                  <div class="col-xl-8">
+                    <form>
+                      <div class="form-row">
+                        <div class="form-group col-sm-6 col-lg-4">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <label id="monthly_amount_addon" class="input-group-text" for="id_last_funded_monthly_amount">毎月取り崩す金額</label>
+                            </div>
+                            <input type="number" class="form-control text-right" id="id_last_funded_monthly_amount" value="200000" min="0"
+                              max="9999999" step="10000" required pattern="\d*" aria-describedby='monthly_amount_addon' data-toggle="tooltip" title="取り崩し期間の間、毎月資産から売却する金額">
+                            <div class="input-group-append">
+                              <label id="monthly_amount_addon" class="input-group-text" for="id_last_funded_monthly_amount">円</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='form-group col-sm-6 col-lg-4'>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <label id="period_addon" class="input-group-text" for='id_last_funded_period'>取り崩し期間</label>
+                            </div>
+                            <input type="number" class="form-control text-right" value="20" min="0" max="99" required id="id_last_funded_period"
+                              pattern="\d*" aria-describedby='period_addon' data-toggle="tooltip" title="総資産から毎月同じ金額を取り崩す期間">
+                            <div class="input-group-append">
+                              <label id="period_addon" class="input-group-text" for='id_last_funded_period'>年</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='form-group col-sm-6 col-lg-4'>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <label id="yearly_yield_addon" class="input-group-text" for="id_last_funded_yearly_yield">利回り</label>
+                            </div>
+                            <input type="number" class="form-control text-right" id="id_last_funded_yearly_yield" value="7" min="-99.9"
+                              max="99.9" step="0.1" required pattern="\d*" aria-describedby='yearly_yield_addon' data-toggle="tooltip" title="保有している資産に期待する年間の利回り">
+                            <div class="input-group-append">
+                              <label id="yearly_yield_addon" class="input-group-text" for="id_last_funded_yearly_yield">%</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="text-center col">
+                    <h2 class="result"></h2>
+                  </div>
+                </div>
+                <div class="chart-container" style="position: relative; width:100%; height:70vh">
+                  <canvas id="id_first_tab_radar_chart"></canvas>
+                </div>
+              </div>
+            </div>
+            <div id="canva2" class="tab-pane fade container-fluid">
+              <div class='row pt-2'>
+                <div class='col-xl-8'>
+                  取り崩す総資産額と取り崩し期間・利回りを入力してください。<br>
+                  すぐに毎月取り崩せる金額が計算されます！
+                </div>
+                <div class='col-xl-4 text-center'>
+                  <div class="twitter_share d-inline">
+                  </div>
+                  <div class='line_share d-inline'>
+                  </div>
+                  <div class='facebook_share d-inline'>
+                  </div>
+                  <div class='d-inline'>
+                    <a id="ss-picture2" download="tousimu_result.png" class='btn download rounded-pill btn-sm' href='#'><i
+                        class="fas fa-camera"></i> Download</a>
+                  </div>
+                </div>
+              </div>
+              <div id='ss-target2'>
+                <div class="row pt-2">
+                  <div class="col-xl-8">
+                    <form>
+                      <div class="form-row">
+                        <div class="form-group col-sm-6 col-lg-4">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <label id="last_funded_addon" class="input-group-text" for="id_monthly_amount_last_funded_amount">総資産額</label>
+                            </div>
+                            <input type="number" class="form-control text-right" id="id_monthly_amount_last_funded_amount" value="25000000"
+                              min="0" max="999999999" step="10000000" required pattern="\d*" aria-describedby='last_funded_addon' data-toggle="tooltip" title="毎月取り崩していく資産の保有額">
+                            <div class="input-group-append">
+                              <label id="last_funded_addon" class="input-group-text" for="id_monthly_amount_last_funded_amount">円</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='form-group col-sm-6 col-lg-4'>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <label id="period_addon" class="input-group-text" for="id_monthly_amount_period">取り崩し期間</label>
+                            </div>
+                            <input type="number" class="form-control text-right" value="20" min="0" max="99" required
+                              id="id_monthly_amount_period" pattern="\d*" aria-describedby='period_addon' data-toggle="tooltip" title="総資産から毎月同じ金額を取り崩す期間">
+                            <div class="input-group-append">
+                              <label id="period_addon" class="input-group-text" for="id_monthly_amount_period">年</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='form-group col-sm-6 col-lg-4'>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <label id="yearly_yield_addon" class="input-group-text" for="id_monthly_amount_yearly_yield">利回り</label>
+                            </div>
+                            <input type="number" class="form-control text-right" id="id_monthly_amount_yearly_yield" value="7" min="-99.9"
+                              max="99.9" step="0.1" required pattern="\d*" aria-describedby='yearly_yield_addon' data-toggle="tooltip" title="保有している資産に期待する年間の利回り">
+                            <div class="input-group-append">
+                              <label id="yearly_yield_addon" class="input-group-text" for="id_monthly_amount_yearly_yield">%</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="text-center col">
+                    <h2 class="result"></h2>
+                  </div>
+                </div>
+                <div class="chart-container" style="position: relative; width:100%; height:70vh">
+                  <canvas id="id_second_tab_radar_chart"></canvas>
+                </div>
+              </div>
+            </div>
+            <div id="canva3" class="tab-pane fade container-fluid">
+              <div class='row pt-2'>
+                <div class='col-xl-8'>
+                  取り崩す総資産額と毎月取り崩す金額・利回りを入力してください。<br>
+                  すぐに取り崩せる期間が計算されます！
+                </div>
+                <div class='col-xl-4 text-center'>
+                  <div class="twitter_share d-inline">
+                  </div>
+                  <div class='line_share d-inline'>
+                  </div>
+                  <div class='facebook_share d-inline'>
+                  </div>
+                  <div class='d-inline'>
+                    <a id="ss-picture3" download="tousimu_result.png" class='btn download rounded-pill btn-sm' href='#'><i
+                        class="fas fa-camera"></i> Download</a>
+                  </div>
+                </div>
+              </div>
+              <div id='ss-target3'>
+                <div class="row pt-2">
+                  <div class="col-xl-8">
+                    <form>
+                      <div class="form-row">
+                        <div class="form-group col-sm-6 col-lg-4">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <label id="last_funded_addon" class="input-group-text" for="id_period_last_funded_amount">総資産額</label>
+                            </div>
+                            <input type="number" class="form-control text-right" id="id_period_last_funded_amount" value="25000000" min="0"
+                              max="999999999" step="10000000" required pattern="\d*" aria-describedby='last_funded_addon' data-toggle="tooltip" title="毎月取り崩していく資産の保有額">
+                            <div class="input-group-append">
+                              <label id="last_funded_addon" class="input-group-text" for="id_period_last_funded_amount">円</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='form-group col-sm-6 col-lg-4'>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <label id="monthly_amount_addon" class="input-group-text" for="id_period_monthly_amount">毎月取り崩す金額</label>
+                            </div>
+                            <input type="number" class="form-control text-right" value="200000" min="0" max="99999999" step="10000" required
+                              id="id_period_monthly_amount" pattern="\d*" aria-describedby='monthly_amount_addon' data-toggle="tooltip" title="取り崩し期間の間、毎月資産から売却する金額">
+                            <div class="input-group-append">
+                              <label id="monthly_amount_addon" class="input-group-text" for="id_period_monthly_amount">円</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='form-group col-sm-6 col-lg-4'>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <label id="yearly_yield_addon" class="input-group-text" for="id_period_yearly_yield">利回り</label>
+                            </div>
+                            <input type="number" class="form-control text-right" id="id_period_yearly_yield" value="7" min="-99.9" max="99.9"
+                              step="0.1" required pattern="\d*" aria-describedby='yearly_yield_addon' data-toggle="tooltip" title="保有している資産に期待する年間の利回り">
+                            <div class="input-group-append">
+                              <label id="yearly_yield_addon" class="input-group-text" for="id_period_yearly_yield">%</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="text-center col">
+                    <h2 class="result"></h2>
+                  </div>
+                </div>
+                <div class="chart-container" style="position: relative; width:100%; height:70vh">
+                  <canvas id="id_third_tab_radar_chart"></canvas>
+                </div>
+              </div>
+            </div>
+            <div id="canva4" class="tab-pane fade container-fluid">
+              <div class='row pt-2'>
+                <div class='col-xl-8'>
+                  取り崩す総資産額と毎月取り崩す金額・取り崩し期間を入力してください。<br>
+                  すぐに取崩しに必要な利回りが計算されます！
+                </div>
+                <div class='col-xl-4 text-center'>
+                  <div class="twitter_share d-inline">
+                  </div>
+                  <div class='line_share d-inline'>
+                  </div>
+                  <div class='facebook_share d-inline'>
+                  </div>
+                  <div class='d-inline'>
+                    <a id="ss-picture4" download="tousimu_result.png" class='btn download rounded-pill btn-sm' href='#'><i
+                        class="fas fa-camera"></i> Download</a>
+                  </div>
+                </div>
+              </div>
+              <div id='ss-target4'>
+                <div class="row pt-2">
+                  <div class="col-xl-8">
+                    <form>
+                      <div class="form-row">
+                        <div class="form-group col-sm-6 col-lg-4">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <label id="last_funded_addon" class="input-group-text" for="id_yearly_yield_last_funded_amount">総資産額</label>
+                            </div>
+                            <input type="number" class="form-control text-right" id="id_yearly_yield_last_funded_amount" value="25000000"
+                              min="0" max="999999999" step="10000000" required pattern="\d*" aria-describedby='last_funded_addon' data-toggle="tooltip" title="毎月取り崩していく資産の保有額">
+                            <div class="input-group-append">
+                              <label id="last_funded_addon" class="input-group-text" for="id_yearly_yield_last_funded_amount">円</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='form-group col-sm-6 col-lg-4'>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <label id="monthly_amount_addon" class="input-group-text" for="id_yearly_yield_monthly_amount">毎月取り崩す金額</label>
+                            </div>
+                            <input type="number" class="form-control text-right" value="200000" min="0" max="99999999" step="10000" required
+                              id="id_yearly_yield_monthly_amount" pattern="\d*" aria-describedby='monthly_amount_addon' data-toggle="tooltip" title="取り崩し期間の間、毎月資産から売却する金額">
+                            <div class="input-group-append">
+                              <label id="monthly_amount_addon" class="input-group-text" for="id_yearly_yield_monthly_amount">円</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='form-group col-sm-6 col-lg-4'>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <label id="period_addon" class="input-group-text" for="id_yearly_yield_period">取り崩し期間</label>
+                            </div>
+                            <input type="number" class="form-control text-right" id="id_yearly_yield_period" value="20" min="-99.9" max="80"
+                              required pattern="\d*" aria-describedby='period_addon' data-toggle="tooltip" title="総資産から毎月同じ金額を取り崩す期間">
+                            <div class="input-group-append">
+                              <label id="period_addon" class="input-group-text" for="id_yearly_yield_period">年</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="text-center col">
+                    <h2 class="result"></h2>
+                  </div>
+                </div>
+                <div class="chart-container" style="position: relative; width:100%; height:70vh">
+                  <canvas id="id_forth_tab_radar_chart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='row justify-content-center'>
+        <div class='col-xl-10'>
+          <div class="card">
+            <div class="card-header" role="tab" id="collapseListGroupHeading1">
+              <h2 class="mb-0 h6">
+                <a href="#collapseListGroup1" class="collapsed text-body d-block p-3 m-n3" role="button"
+                  data-toggle="collapse" aria-expanded="false" aria-controls="collapseListGroup1">シミュレーションの詳細</a>
+              </h2>
+            </div><!-- /.card-header -->
+            <div class="collapse" role="tabpanel" id="collapseListGroup1" aria-labelledby="collapseListGroupHeading1"
+              aria-expanded="false">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">※ 結果はあくまで入力値に基づいたシミュレーションです。</li>
+                <li class="list-group-item">※ 取引手数料、所得税は控除しておりません。</li>
+              </ul>
+              <div class="card-footer">その他シミュレーションの詳細はTwitterからお問い合わせください。</div>
+            </div><!-- /.collapse -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 
-{% block tab1_explanation %}
-毎月取り崩す金額・取り崩し期間・利回りを入力してください。<br>
-すぐに取り崩しに必要な総資産額が計算されます！
-{% endblock tab1_explanation %}
+  <footer class='page-footer font-small mt-5' style='background-color: #F8F9FA'>
+    <div class="text-center py-4">
+      <p>
+        <a href="terms.html" class='text-body'>利用規約</a>｜
+        <a href="privacy.html" class='text-body'>プライバシーポリシー</a>
+      </p>
+      <p>© 2020 Copyright: Tousimu</p>
+    </div>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="js/base-tab.js"></script>
+  <script type="text/javascript" src="js/html2canvas.min.js"></script>
+  <script type="text/javascript" src="js/flat-price-sale.js"></script>
+</body>
 
-{% block tab1_content %}
-<div class="form-group col-sm-6 col-lg-4">
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <label id="monthly_amount_addon" class="input-group-text" for="id_last_funded_monthly_amount">毎月取り崩す金額</label>
-    </div>
-    <input type="number" class="form-control text-right" id="id_last_funded_monthly_amount" value="200000" min="0"
-      max="9999999" step="10000" required pattern="\d*" aria-describedby='monthly_amount_addon' data-toggle="tooltip" title="取り崩し期間の間、毎月資産から売却する金額">
-    <div class="input-group-append">
-      <label id="monthly_amount_addon" class="input-group-text" for="id_last_funded_monthly_amount">円</label>
-    </div>
-  </div>
-</div>
-<div class='form-group col-sm-6 col-lg-4'>
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <label id="period_addon" class="input-group-text" for='id_last_funded_period'>取り崩し期間</label>
-    </div>
-    <input type="number" class="form-control text-right" value="20" min="0" max="99" required id="id_last_funded_period"
-      pattern="\d*" aria-describedby='period_addon' data-toggle="tooltip" title="総資産から毎月同じ金額を取り崩す期間">
-    <div class="input-group-append">
-      <label id="period_addon" class="input-group-text" for='id_last_funded_period'>年</label>
-    </div>
-  </div>
-</div>
-<div class='form-group col-sm-6 col-lg-4'>
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <label id="yearly_yield_addon" class="input-group-text" for="id_last_funded_yearly_yield">利回り</label>
-    </div>
-    <input type="number" class="form-control text-right" id="id_last_funded_yearly_yield" value="7" min="-99.9"
-      max="99.9" step="0.1" required pattern="\d*" aria-describedby='yearly_yield_addon' data-toggle="tooltip" title="保有している資産に期待する年間の利回り">
-    <div class="input-group-append">
-      <label id="yearly_yield_addon" class="input-group-text" for="id_last_funded_yearly_yield">%</label>
-    </div>
-  </div>
-</div>
-{% endblock tab1_content %}
-
-{% block tab2_explanation %}
-取り崩す総資産額と取り崩し期間・利回りを入力してください。<br>
-すぐに毎月取り崩せる金額が計算されます！
-{% endblock tab2_explanation %}
-
-{% block tab2_content %}
-<div class="form-group col-sm-6 col-lg-4">
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <label id="last_funded_addon" class="input-group-text" for="id_monthly_amount_last_funded_amount">総資産額</label>
-    </div>
-    <input type="number" class="form-control text-right" id="id_monthly_amount_last_funded_amount" value="25000000"
-      min="0" max="999999999" step="10000000" required pattern="\d*" aria-describedby='last_funded_addon' data-toggle="tooltip" title="毎月取り崩していく資産の保有額">
-    <div class="input-group-append">
-      <label id="last_funded_addon" class="input-group-text" for="id_monthly_amount_last_funded_amount">円</label>
-    </div>
-  </div>
-</div>
-<div class='form-group col-sm-6 col-lg-4'>
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <label id="period_addon" class="input-group-text" for="id_monthly_amount_period">取り崩し期間</label>
-    </div>
-    <input type="number" class="form-control text-right" value="20" min="0" max="99" required
-      id="id_monthly_amount_period" pattern="\d*" aria-describedby='period_addon' data-toggle="tooltip" title="総資産から毎月同じ金額を取り崩す期間">
-    <div class="input-group-append">
-      <label id="period_addon" class="input-group-text" for="id_monthly_amount_period">年</label>
-    </div>
-  </div>
-</div>
-<div class='form-group col-sm-6 col-lg-4'>
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <label id="yearly_yield_addon" class="input-group-text" for="id_monthly_amount_yearly_yield">利回り</label>
-    </div>
-    <input type="number" class="form-control text-right" id="id_monthly_amount_yearly_yield" value="7" min="-99.9"
-      max="99.9" step="0.1" required pattern="\d*" aria-describedby='yearly_yield_addon' data-toggle="tooltip" title="保有している資産に期待する年間の利回り">
-    <div class="input-group-append">
-      <label id="yearly_yield_addon" class="input-group-text" for="id_monthly_amount_yearly_yield">%</label>
-    </div>
-  </div>
-</div>
-{% endblock tab2_content %}
-
-{% block tab3_explanation %}
-取り崩す総資産額と毎月取り崩す金額・利回りを入力してください。<br>
-すぐに取り崩せる期間が計算されます！
-{% endblock tab3_explanation %}
-
-{% block tab3_content %}
-<div class="form-group col-sm-6 col-lg-4">
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <label id="last_funded_addon" class="input-group-text" for="id_period_last_funded_amount">総資産額</label>
-    </div>
-    <input type="number" class="form-control text-right" id="id_period_last_funded_amount" value="25000000" min="0"
-      max="999999999" step="10000000" required pattern="\d*" aria-describedby='last_funded_addon' data-toggle="tooltip" title="毎月取り崩していく資産の保有額">
-    <div class="input-group-append">
-      <label id="last_funded_addon" class="input-group-text" for="id_period_last_funded_amount">円</label>
-    </div>
-  </div>
-</div>
-<div class='form-group col-sm-6 col-lg-4'>
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <label id="monthly_amount_addon" class="input-group-text" for="id_period_monthly_amount">毎月取り崩す金額</label>
-    </div>
-    <input type="number" class="form-control text-right" value="200000" min="0" max="99999999" step="10000" required
-      id="id_period_monthly_amount" pattern="\d*" aria-describedby='monthly_amount_addon' data-toggle="tooltip" title="取り崩し期間の間、毎月資産から売却する金額">
-    <div class="input-group-append">
-      <label id="monthly_amount_addon" class="input-group-text" for="id_period_monthly_amount">円</label>
-    </div>
-  </div>
-</div>
-<div class='form-group col-sm-6 col-lg-4'>
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <label id="yearly_yield_addon" class="input-group-text" for="id_period_yearly_yield">利回り</label>
-    </div>
-    <input type="number" class="form-control text-right" id="id_period_yearly_yield" value="7" min="-99.9" max="99.9"
-      step="0.1" required pattern="\d*" aria-describedby='yearly_yield_addon' data-toggle="tooltip" title="保有している資産に期待する年間の利回り">
-    <div class="input-group-append">
-      <label id="yearly_yield_addon" class="input-group-text" for="id_period_yearly_yield">%</label>
-    </div>
-  </div>
-</div>
-{% endblock tab3_content %}
-
-{% block tab4_explanation %}
-取り崩す総資産額と毎月取り崩す金額・取り崩し期間を入力してください。<br>
-すぐに取崩しに必要な利回りが計算されます！
-{% endblock tab4_explanation %}
-
-{% block tab4_content %}
-<div class="form-group col-sm-6 col-lg-4">
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <label id="last_funded_addon" class="input-group-text" for="id_yearly_yield_last_funded_amount">総資産額</label>
-    </div>
-    <input type="number" class="form-control text-right" id="id_yearly_yield_last_funded_amount" value="25000000"
-      min="0" max="999999999" step="10000000" required pattern="\d*" aria-describedby='last_funded_addon' data-toggle="tooltip" title="毎月取り崩していく資産の保有額">
-    <div class="input-group-append">
-      <label id="last_funded_addon" class="input-group-text" for="id_yearly_yield_last_funded_amount">円</label>
-    </div>
-  </div>
-</div>
-<div class='form-group col-sm-6 col-lg-4'>
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <label id="monthly_amount_addon" class="input-group-text" for="id_yearly_yield_monthly_amount">毎月取り崩す金額</label>
-    </div>
-    <input type="number" class="form-control text-right" value="200000" min="0" max="99999999" step="10000" required
-      id="id_yearly_yield_monthly_amount" pattern="\d*" aria-describedby='monthly_amount_addon' data-toggle="tooltip" title="取り崩し期間の間、毎月資産から売却する金額">
-    <div class="input-group-append">
-      <label id="monthly_amount_addon" class="input-group-text" for="id_yearly_yield_monthly_amount">円</label>
-    </div>
-  </div>
-</div>
-<div class='form-group col-sm-6 col-lg-4'>
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <label id="period_addon" class="input-group-text" for="id_yearly_yield_period">取り崩し期間</label>
-    </div>
-    <input type="number" class="form-control text-right" id="id_yearly_yield_period" value="20" min="-99.9" max="80"
-      required pattern="\d*" aria-describedby='period_addon' data-toggle="tooltip" title="総資産から毎月同じ金額を取り崩す期間">
-    <div class="input-group-append">
-      <label id="period_addon" class="input-group-text" for="id_yearly_yield_period">年</label>
-    </div>
-  </div>
-</div>
-{% endblock tab4_content %}
-
-{% block sub_js %}
-<script type="text/javascript" src="js/flat-price-sale.js"></script>
-{% endblock sub_js %}
+</html>

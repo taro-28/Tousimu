@@ -1,47 +1,119 @@
-{% extends 'simulators/base.html
+<!DOCTYPE html>
+<html>
 
-{% block title %}プライバシーポリシー{% endblock title %}
+<head>
+  <!-- エンコードの指定 -->
+  <meta charset="utf-8">
 
-{% block content %}
-<main class='m-1'>
-  <div class='row justify-content-md-center'>
-    <div class='col-lg-10 mx-2'>
-      <div aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
-          <li class="breadcrumb-item active">プライバシーポリシー</li>
-        </ol>
+  <!-- 電話番号の自動リンク化を無効 -->
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- viewport(レスポンシブ用) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- サイトのタイトル＆説明 -->
+  <title>プライバシーポリシー</title>
+  <meta name="description"
+    content="Tousimu[トウシム]は、シンプルで簡単にすぐ使える長期投資シミュレーションです。">
+
+  <!-- Twitterカード -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@taroro_tarotaro">
+
+  <meta property="og:url" content="https://taro-28.github.io/Tou-Simu/index.html">
+  <meta property="og:title" content="Tousimu[トウシム]">
+  <meta property="og:description" content="長期投資で未来をシミュレーション">
+  <meta property="og:image" content="https://taro-28.github.io/Tou-Simu/img/card-thumbnail.jpg">
+
+  <link rel="icon" href="img/favicon.ico">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/base.css">
+
+  <script type="text/javascript" src="https://kit.fontawesome.com/37a5b4f8e2.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+
+</head>
+
+<body>
+  <header class='sticky-top shadow-sm'>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="index.html">
+        <img class='img-fluid' src="img/logo.png" alt='Tousimu Logo'>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav mr-auto">
+          <a class="nav-item nav-link" href="funded-simulator.html"
+            id='id_index_invest'>積立金額シミュレーション</a>
+          <a class="nav-item nav-link" href="dividend-simulator.html">配当金額シミュレーション</a>
+          <a class="nav-item nav-link" href="flat-price-sale.html">資産取崩しシミュレーション</a>
+        </div>
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="info.html"><i class="far fa-bell"></i> 更新情報</a>
+          <a class="nav-item nav-link" href='https://twitter.com/taroro_tarotaro'><i class="fa fa-twitter"></i>
+            開発者Twitter</a>
+        </div>
       </div>
-      <h2 class='text-center'>プライバシーポリシー</h2>
-      <h3>免責事項</h3>
-      <p>
-        当サイトで掲載している画像の著作権・肖像権等は各権利所有者に帰属致します。権利を侵害する目的ではございません。記事の内容や掲載画像等に問題がございましたら、各権利所有者様本人が直接メールでご連絡下さい。確認後、対応させて頂きます。
-
-        当サイトからリンクやバナーなどによって他のサイトに移動された場合、移動先サイトで提供される情報、サービス等について一切の責任を負いません。
-
-        当サイトのコンテンツ・情報につきまして、可能な限り正確な情報を掲載するよう努めておりますが、誤情報が入り込んだり、情報が古くなっていることもございます。
-
-        当サイトに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。
-      </p>
-      <h3>アクセス解析ツールについて</h3>
-      <p>当サイトでは、Googleによるアクセス解析ツール「Googleアナリティクス」を利用しています。
-
-        このGoogleアナリティクスはトラフィックデータの収集のためにCookieを使用しています。このトラフィックデータは匿名で収集されており、個人を特定するものではありません。この機能はCookieを無効にすることで収集を拒否することが出来ますので、お使いのブラウザの設定をご確認ください。この規約に関して、詳しくはここを<a
-          href="https://marketingplatform.google.com/about/analytics/terms/jp/">クリック</a>してください。
-      </p>
-      <h3>広告の配信について</h3>
-      <p>当サイトは第三者配信の広告サービス「Google Adsense グーグルアドセンス」を利用しています。
-
-        広告配信事業者は、ユーザーの興味に応じた広告を表示するためにCookie（クッキー）を使用することがあります。
-
-        Cookie（クッキー）を無効にする設定およびGoogleアドセンスに関する詳細は「<a href="https://policies.google.com/technologies/ads?gl=jp">広告 –
-          ポリシーと規約 – Google</a>」をご覧ください。
-        また、Tousimuは、Amazon.co.jpを宣伝しリンクすることによってサイトが紹介料を獲得できる手段を提供することを目的に設定されたアフィリエイトプログラムである、Amazonアソシエイト・プログラムの参加者です。
-
-        第三者がコンテンツおよび宣伝を提供し、訪問者から直接情報を収集し、訪問者のブラウザにCookie（クッキー）を設定したりこれを認識したりする場合があります。
-      </p>
-      <p class='text-right'>以上</p>
+    </nav>
+  </header>
+  <main class='m-1'>
+    <div class='row justify-content-md-center'>
+      <div class='col-lg-10 mx-2'>
+        <div aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
+            <li class="breadcrumb-item active">プライバシーポリシー</li>
+          </ol>
+        </div>
+        <h2 class='text-center'>プライバシーポリシー</h2>
+        <h3>免責事項</h3>
+        <p>
+          当サイトで掲載している画像の著作権・肖像権等は各権利所有者に帰属致します。権利を侵害する目的ではございません。記事の内容や掲載画像等に問題がございましたら、各権利所有者様本人が直接メールでご連絡下さい。確認後、対応させて頂きます。
+  
+          当サイトからリンクやバナーなどによって他のサイトに移動された場合、移動先サイトで提供される情報、サービス等について一切の責任を負いません。
+  
+          当サイトのコンテンツ・情報につきまして、可能な限り正確な情報を掲載するよう努めておりますが、誤情報が入り込んだり、情報が古くなっていることもございます。
+  
+          当サイトに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。
+        </p>
+        <h3>アクセス解析ツールについて</h3>
+        <p>当サイトでは、Googleによるアクセス解析ツール「Googleアナリティクス」を利用しています。
+  
+          このGoogleアナリティクスはトラフィックデータの収集のためにCookieを使用しています。このトラフィックデータは匿名で収集されており、個人を特定するものではありません。この機能はCookieを無効にすることで収集を拒否することが出来ますので、お使いのブラウザの設定をご確認ください。この規約に関して、詳しくはここを<a
+            href="https://marketingplatform.google.com/about/analytics/terms/jp/">クリック</a>してください。
+        </p>
+        <h3>広告の配信について</h3>
+        <p>当サイトは第三者配信の広告サービス「Google Adsense グーグルアドセンス」を利用しています。
+  
+          広告配信事業者は、ユーザーの興味に応じた広告を表示するためにCookie（クッキー）を使用することがあります。
+  
+          Cookie（クッキー）を無効にする設定およびGoogleアドセンスに関する詳細は「<a href="https://policies.google.com/technologies/ads?gl=jp">広告 –
+            ポリシーと規約 – Google</a>」をご覧ください。
+          また、Tousimuは、Amazon.co.jpを宣伝しリンクすることによってサイトが紹介料を獲得できる手段を提供することを目的に設定されたアフィリエイトプログラムである、Amazonアソシエイト・プログラムの参加者です。
+  
+          第三者がコンテンツおよび宣伝を提供し、訪問者から直接情報を収集し、訪問者のブラウザにCookie（クッキー）を設定したりこれを認識したりする場合があります。
+        </p>
+        <p class='text-right'>以上</p>
+      </div>
     </div>
-  </div>
-</main>
-{% endblock content %}
+  </main>
+  <footer class='page-footer font-small mt-5' style='background-color: #F8F9FA'>
+    <div class="text-center py-4">
+      <p>
+        <a href="terms.html" class='text-body'>利用規約</a>｜
+        <a href="privacy.html" class='text-body'>プライバシーポリシー</a>
+      </p>
+      <p>© 2020 Copyright: Tousimu</p>
+    </div>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
