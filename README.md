@@ -2,7 +2,7 @@
 
 **長期投資の福利計算シミュレーションツール**
 
-[https://taro-28.github.io/Tou-Simu/index.html](https://taro-28.github.io/Tousimu/index.html)
+[https://taro-28.github.io/Tousimu/index.html](https://taro-28.github.io/Tousimu/index.html)
 
 ![画面収録 2022-01-04 12 06 24 mov](https://user-images.githubusercontent.com/66539019/148004455-f8f2b90b-4a61-4763-8569-394131793ee2.gif)
 
