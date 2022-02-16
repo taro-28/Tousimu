@@ -1,6 +1,6 @@
 # Tousimu(トウシム)
 
-**長期投資の福利計算シミュレーションツール**
+**長期投資の複利計算シミュレーションツール**
 
 [https://taro-28.github.io/Tousimu/index.html](https://taro-28.github.io/Tousimu/index.html)
 
